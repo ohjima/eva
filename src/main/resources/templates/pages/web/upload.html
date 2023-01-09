@@ -1,0 +1,68 @@
+
+<!-- Include innorix.css and innorix.js (the Exabyter Javascirpt API) in your web page. -->
+<link rel="stylesheet" href="https://exabyter.com/styles/exa/innorix.css">  
+<script src="/innorix/innorix.js"></script>
+<p>fileBox start</p>
+<div id="fileBox"></div>
+<p>fileBox end</p> 
+<script>
+    var box_config = null; 
+    var box = null ; 
+    window.onload = function() {
+        box_config = {
+            default: {
+                custom: {product: "webpages"},
+                transferMode: "both",
+                boxStyle: "simple3",
+                boxWidth: 600,
+                boxHeight: 200,
+                allowType: null,
+                denyType: null,
+                maxFileCount: null,
+                maxFileSize: null,
+                maxTotalSize: null,
+                showTransferWindow: "true",
+                showMiniTransferWindow: false,
+                addDuplicateFile: false,
+                html5: false,
+                downloadType: "stream",
+                uploadURL: "/fileupload" , 
+            }
+        }
+
+        // With innorix.create, create the parameters for Exabyter control and set the property value.
+        box = innorix.create({
+            el: "#fileBox",
+            boxConfig: box_config.default,
+        });
+        // EVENT LIST
+        box.on("loadComplete", function (p) { console.log("loadComplete: event fire "); });
+        box.on("afterAddFiles", function (p) { console.log("afterAddFiles: event fire "); });
+        box.on("addFileError", function (p) { console.log("addFileError: event fire "); });
+        box.on("onSelectRows", function (p) { console.log("onSelectRows: event fire "); });
+        box.on("onUnSelectRows", function (p) { console.log("onUnSelectRows: event fire "); });
+        box.on("onDblClickRows", function (p) { console.log("onDblClickRows: event fire "); });
+        box.on("beforeRemoveFiles", function (p) { console.log("beforeRemoveFiles: event fire "); });
+        box.on("removeFiles", function (p) { console.log("removeFiles: event fire "); });
+        box.on("uploadBefore", function (p) { console.log("uploadBefore: event fire "); });
+        box.on("uploadStart", function (p) { console.log("uploadStart: event fire "); });
+        box.on("uploadComplete", function (p) { 
+            console.log("uploadComplete: event fire ");   
+        });
+        box.on("uploadCancel", function (p) { console.log("uploadCancel: event fire "); });
+        box.on("uploadError", function (p) { console.log("uploadError: event fire "); });
+        box.on("downloadBefore", function (p) { console.log("downloadBefore: event fire "); });
+        box.on("downloadStart", function (p) { console.log("downloadStart: event fire "); });
+        box.on("downloadComplete", function (p) { console.log("downloadComplete: event fire "); });
+        box.on("downloadCancel", function (p) { console.log("downloadCancel: event fire "); });
+        box.on("downloadError", function (p) { console.log("downloadError: event fire "); });
+    } ;
+</script>
+
+ 
+
+<!-- Buttons -->
+<input type="button" value="멀티 파일 추가" onclick="box.openFileDialog()" />
+<input type="button" value="단일 파일 추가" onclick="control.openFileDialogSingle();"/>
+<input type="button" value="Upload" onclick="box.upload();" />
+
